@@ -1,0 +1,86 @@
+.navbar {
+  width: 100%;
+  height: 80px;
+  background-color: #85c7f3;
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+
+    .button-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .logo {
+      width: 75px;
+      height: 75px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 100%;
+      }
+    }
+
+    .login-button {
+      width: 120px;
+      height: 50px;
+      background-color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #85c7f3;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background-color: #85c7f3;
+        color: #fff;
+      }
+    }
+    .logout-button {
+      width: 120px;
+      height: 50px;
+      background-color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #85c7f3;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background-color: #85c7f3;
+        color: #fff;
+      }
+    }
+    .create-visit {
+      width: 120px;
+      height: 50px;
+      background-color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #85c7f3;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background-color: #85c7f3;
+        color: #fff;
+      }
+    }
+  }
+}
