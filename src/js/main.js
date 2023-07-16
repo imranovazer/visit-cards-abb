@@ -3,9 +3,23 @@ import Modal from './Modal.js';
 
 const Me = new User();
 
-const modal = new Modal('Hello', 'World');
+const loginContent = `<form class="login-form" " >
+<input type="text" name="email" placeholder="Email">
+<input type="password" name="password" placeholder="Password">
+<button type="submit" class="login-button" >Login</button>
+</form>`
 
+const login_modal = new Modal('Hello', loginContent);
 
+const handleLogin = (e) => {
+    e.preventDefault();
+
+    const email = document.querySelector('input[name="email"]').value;
+    const password = document.querySelector('input[name="password"]').value;
+    Me.login(email, password);
+}
+
+// modal.render();
 const navbar = document.querySelector('.navbar .container .button-container');
 
 //create vist button 
@@ -19,7 +33,14 @@ loginButton.className = "login-button"
 loginButton.innerText = 'Login';
 
 loginButton.addEventListener('click', () => {
-    Me.login("imranovazer@gmail.com", "Azer2002")
+
+    login_modal.render();
+    const form = document.querySelector('.login-form')
+    form.addEventListener('submit', handleLogin);
+    console.log(form)
+    //.addEventListener('submit', handleLogin);
+
+    // Me.login("imranovazer@gmail.com", "Azer2002")
 })
 
 //logout button

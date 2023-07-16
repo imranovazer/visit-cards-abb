@@ -1,0 +1,23 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  .login-button {
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ccc;
+    cursor: pointer;
+    &:hover {
+      background-color: #bbb;
+    }
+  }
+}

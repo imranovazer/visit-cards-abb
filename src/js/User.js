@@ -10,6 +10,9 @@ export default class User {
     }
 
     async login(login, pass) {
+
+
+
         fetch("https://ajax.test-danit.com/api/v2/cards/login", {
             method: 'POST',
             headers: {
@@ -19,9 +22,20 @@ export default class User {
         })
             .then(response => response.text())
             .then(token => {
-                console.log(token)
-                localStorage.setItem('token', token);
-                window.location.reload();
+                if (token == 'Incorrect username or password') {
+                    const error = document.createElement('p');
+                    error.style.color = "red";
+                    error.className = "error";
+                    error.textContent = "Incorrect username or password";
+                    const form = document.querySelector('.login-form');
+                    form.appendChild(error);
+                }
+                else {
+
+                    localStorage.setItem('token', token);
+                    window.location.reload();
+
+                }
             })
     }
     logout() {
