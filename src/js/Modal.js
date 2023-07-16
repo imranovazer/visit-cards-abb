@@ -1,3 +1,5 @@
+
+
 export default class Modal {
     constructor(title, content) {
         this.title = title;
@@ -22,10 +24,29 @@ export default class Modal {
         modalContent.addEventListener('click', (event) => {
             event.stopPropagation();
         })
+        //---------------------------------------------
+        const closeButton = document.createElement('button');
+        closeButton.className = "close-button";
+        closeButton.textContent = "x";
+        closeButton.addEventListener('click', () => {
+            this.unrender();
+        })
+        modalContent.appendChild(closeButton);
+
+
+        //---------------------------------------------
+        const title = document.createElement('h2');
+        title.className = "title";
+        title.textContent = this.title;
+        modalContent.appendChild(title);
+        //---------------------------------------------
+        const content = document.createElement('div');
+        content.className = "content";
+        content.innerHTML = this.content;
+        modalContent.appendChild(content);
+        //
 
         modal.appendChild(modalContent);
-
-
         body.appendChild(modal);
     }
 
