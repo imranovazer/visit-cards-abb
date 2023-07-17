@@ -1,9 +1,21 @@
 import User from './User.js'
 import Modal from './Modal.js';
+import { Cardiologist } from './Visit.js';
+import { Dentist } from './Visit.js';
+import { Therapist } from './Visit.js';
+
+import { Visit } from './Visit.js';
 
 const Me = new User();
 
-
+// const res = await fetch("https://ajax.test-danit.com/api/v2/cards", {
+//   method: 'GET',
+//   headers: {
+//     'Authorization': `Bearer ${localStorage.getItem("token")}`
+//   },
+// })
+// const process = await res.json();
+// console.log(process)
 //Login logic ---------------------------------------------------------
 const loginContent = `<form class="login-form" " >
 <input type="text" name="email" placeholder="Email">
@@ -23,7 +35,8 @@ const handleLogin = (e) => {
 //Create-visit-modal -----------------------------------------
 
 const createVisitModaContent = `<div>
-    <form>
+    <form class="visit-form">
+    <p class="satus"></p>
      <select class="select-doctor form-select">
         <option selected>Choose doctor</option>
         <option value="cardiologist">Cardiologist</option>
@@ -64,7 +77,6 @@ const createVisitModaContent = `<div>
 
 const createVisitModal = new Modal('Create visit', createVisitModaContent);
 
-createVisitModal.render();
 
 
 
@@ -88,6 +100,58 @@ createVisitButton.addEventListener('click', () => {
     createVisitModal.render();
 
     const select_doctor = document.querySelector('.select-doctor');
+
+    const visit_form = document.querySelector('.visit-form');
+    visit_form.addEventListener('submit', async (e) => {
+      try{
+        e.preventDefault();
+        const visitPurpose = document.querySelector('#visitPurpose').value;
+        const visitDescription = document.querySelector('#visitDescription').value;
+        const urgency = document.querySelector('#urgency').value;
+        const fullName = document.querySelector('#fullName').value;
+        const doctor = document.querySelector('.select-doctor').value;
+        const lastVisitDate = document.querySelector('#lasrVisitDate')?.value;
+        const normalBloodPresassure = document.querySelector('#normalBloodPresassure')?.value;
+        const weight = document.querySelector('#weight')?.value;
+        const prevDiagnosed = document.querySelector('#prevDiagnosed')?.value;
+        const age = document.querySelector('#age')?.value;
+        if (doctor === 'dentist') {
+            const newVisit = new Dentist(visitPurpose, visitDescription, urgency, fullName, doctor, lastVisitDate);
+            const processedData = await newVisit.create();
+            console.log(processedData)
+        }
+        else if (doctor === 'cardiologist') {
+            const newVisit = new Cardiologist(visitPurpose, visitDescription, urgency, fullName, doctor, normalBloodPresassure, weight, prevDiagnosed, age);
+            const processedData = await newVisit.create();
+            console.log(processedData)
+        }
+        else if (doctor === 'therapist') {
+            const newVisit = new Therapist(visitPurpose, visitDescription, urgency, fullName, doctor, age);
+            const processedData = await newVisit.create();
+          
+
+            console.log(processedData)
+        }
+        const status = document.querySelector('.satus')
+        status.style.color = 'green';
+        status.innerText = 'Visit created successfully';
+
+
+      }
+      catch(err)
+      {
+          console.log(err)
+         const status = document.querySelector('.satus')
+        status.style.color = 'red';
+        status.innerText = 'Something went wrong';
+      }
+        
+
+    })
+
+
+
+
     select_doctor.addEventListener('change', (e) => {
         const doctor = e.target.value;
         if (doctor === 'dentist') {
@@ -106,8 +170,8 @@ createVisitButton.addEventListener('click', () => {
 
   </div>
   <div class="mb-3">
-    <label for="bmi" class="form-label">Body Mass Index</label>
-    <input type="text" class="form-control" id="bmi" >
+    <label for="weight" class="form-label">Weight</label>
+    <input type="text" class="form-control" id="weight" >
 
   </div>
   <div class="mb-3">
