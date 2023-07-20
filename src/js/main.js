@@ -1,10 +1,10 @@
-import User from './User.js'
-import Modal from './Modal.js';
-import { Cardiologist } from './Visit.js';
-import { Dentist } from './Visit.js';
-import { Therapist } from './Visit.js';
-
-import { Visit } from './Visit.js';
+import User from "./User.js";
+import Modal from "./Modal.js";
+import { Cardiologist } from "./Visit.js";
+import { Dentist } from "./Visit.js";
+import { Therapist } from "./Visit.js";
+import DisplayCards from "./DisplayCards.js";
+import { Visit } from "./Visit.js";
 
 const Me = new User();
 
@@ -21,15 +21,15 @@ const loginContent = `<form class="login-form" " >
 <input type="text" name="email" placeholder="Email">
 <input type="password" name="password" placeholder="Password">
 <button type="submit" class="login-button" >Login</button>
-</form>`
-const login_modal = new Modal('Login', loginContent);
+</form>`;
+const login_modal = new Modal("Login", loginContent);
 
 const handleLogin = (e) => {
-    e.preventDefault();
-    const email = document.querySelector('input[name="email"]').value;
-    const password = document.querySelector('input[name="password"]').value;
-    Me.login(email, password);
-}
+  e.preventDefault();
+  const email = document.querySelector('input[name="email"]').value;
+  const password = document.querySelector('input[name="password"]').value;
+  Me.login(email, password);
+};
 //------------------------------------------------------------
 
 //Create-visit-modal -----------------------------------------
@@ -73,98 +73,103 @@ const createVisitModaContent = `<div>
  
 </form>
     </div>
-    `
+    `;
 
-const createVisitModal = new Modal('Create visit', createVisitModaContent);
-
-
-
-
-
+const createVisitModal = new Modal("Create visit", createVisitModaContent);
 
 //----------------------------
 
+const navbar = document.querySelector(".navbar .container .button-container");
 
+//create vist button
+const createVisitButton = document.createElement("button");
+createVisitButton.className = "create-visit";
+createVisitButton.innerText = "Create Visit";
 
+createVisitButton.addEventListener("click", () => {
+  createVisitModal.render();
 
+  const select_doctor = document.querySelector(".select-doctor");
 
+  const visit_form = document.querySelector(".visit-form");
+  visit_form.addEventListener("submit", async (e) => {
+    try {
+      e.preventDefault();
+      const visitPurpose = document.querySelector("#visitPurpose").value;
+      const visitDescription =
+        document.querySelector("#visitDescription").value;
+      const urgency = document.querySelector("#urgency").value;
+      const fullName = document.querySelector("#fullName").value;
+      const doctor = document.querySelector(".select-doctor").value;
+      const lastVisitDate = document.querySelector("#lasrVisitDate")?.value;
+      const normalBloodPresassure = document.querySelector(
+        "#normalBloodPresassure"
+      )?.value;
+      const weight = document.querySelector("#weight")?.value;
+      const prevDiagnosed = document.querySelector("#prevDiagnosed")?.value;
+      const age = document.querySelector("#age")?.value;
+      if (doctor === "dentist") {
+        const newVisit = new Dentist(
+          visitPurpose,
+          visitDescription,
+          urgency,
+          fullName,
+          doctor,
+          lastVisitDate
+        );
+        const processedData = await newVisit.create();
+        console.log(processedData);
+      } else if (doctor === "cardiologist") {
+        const newVisit = new Cardiologist(
+          visitPurpose,
+          visitDescription,
+          urgency,
+          fullName,
+          doctor,
+          normalBloodPresassure,
+          weight,
+          prevDiagnosed,
+          age
+        );
+        const processedData = await newVisit.create();
+        console.log(processedData);
+      } else if (doctor === "therapist") {
+        const newVisit = new Therapist(
+          visitPurpose,
+          visitDescription,
+          urgency,
+          fullName,
+          doctor,
+          age
+        );
+        const processedData = await newVisit.create();
 
-const navbar = document.querySelector('.navbar .container .button-container');
-
-//create vist button 
-const createVisitButton = document.createElement('button');
-createVisitButton.className = "create-visit"
-createVisitButton.innerText = 'Create Visit';
-
-createVisitButton.addEventListener('click', () => {
-    createVisitModal.render();
-
-    const select_doctor = document.querySelector('.select-doctor');
-
-    const visit_form = document.querySelector('.visit-form');
-    visit_form.addEventListener('submit', async (e) => {
-      try{
-        e.preventDefault();
-        const visitPurpose = document.querySelector('#visitPurpose').value;
-        const visitDescription = document.querySelector('#visitDescription').value;
-        const urgency = document.querySelector('#urgency').value;
-        const fullName = document.querySelector('#fullName').value;
-        const doctor = document.querySelector('.select-doctor').value;
-        const lastVisitDate = document.querySelector('#lasrVisitDate')?.value;
-        const normalBloodPresassure = document.querySelector('#normalBloodPresassure')?.value;
-        const weight = document.querySelector('#weight')?.value;
-        const prevDiagnosed = document.querySelector('#prevDiagnosed')?.value;
-        const age = document.querySelector('#age')?.value;
-        if (doctor === 'dentist') {
-            const newVisit = new Dentist(visitPurpose, visitDescription, urgency, fullName, doctor, lastVisitDate);
-            const processedData = await newVisit.create();
-            console.log(processedData)
-        }
-        else if (doctor === 'cardiologist') {
-            const newVisit = new Cardiologist(visitPurpose, visitDescription, urgency, fullName, doctor, normalBloodPresassure, weight, prevDiagnosed, age);
-            const processedData = await newVisit.create();
-            console.log(processedData)
-        }
-        else if (doctor === 'therapist') {
-            const newVisit = new Therapist(visitPurpose, visitDescription, urgency, fullName, doctor, age);
-            const processedData = await newVisit.create();
-          
-
-            console.log(processedData)
-        }
-        const status = document.querySelector('.satus')
-        status.style.color = 'green';
-        status.innerText = 'Visit created successfully';
-
-
+        console.log(processedData);
       }
-      catch(err)
-      {
-          console.log(err)
-         const status = document.querySelector('.satus')
-        status.style.color = 'red';
-        status.innerText = 'Something went wrong';
-      }
-        
+      const status = document.querySelector(".satus");
+      status.style.color = "green";
+      status.innerText = "Visit created successfully";
+      displayAllCards.display();
+    } catch (err) {
+      console.log(err);
+      const status = document.querySelector(".satus");
+      status.style.color = "red";
+      status.innerText = "Something went wrong";
+    }
+  });
 
-    })
-
-
-
-
-    select_doctor.addEventListener('change', (e) => {
-        const doctor = e.target.value;
-        if (doctor === 'dentist') {
-            const dynamicInputs = document.querySelector('.dynamic-inputs');
-            dynamicInputs.innerHTML = `<div class="mb-3">
+  select_doctor.addEventListener("change", (e) => {
+    const doctor = e.target.value;
+    if (doctor === "dentist") {
+      const dynamicInputs = document.querySelector(".dynamic-inputs");
+      dynamicInputs.innerHTML = `<div class="mb-3">
     <label for="lasrVisitDate" class="form-label">Last visit date</label>
     <input type="text" class="form-control" id="lasrVisitDate" >
 
-  </div>`
-        }
-        else if (doctor === 'cardiologist') {
-            const dynamicInputs = document.querySelector('.dynamic-inputs');
-            dynamicInputs.innerHTML = `<div class="mb-3">
+  </div>`;
+    } else if (doctor === "cardiologist") {
+      const dynamicInputs = document.querySelector(".dynamic-inputs");
+      dynamicInputs.innerHTML = `<div class="mb-3">
     <label for="normalBloodPresassure" class="form-label">Normal blood preassure</label>
     <input type="text" class="form-control" id="normalBloodPresassure" >
 
@@ -183,59 +188,44 @@ createVisitButton.addEventListener('click', () => {
     <label for="age" class="form-label">Age</label>
     <input type="text" class="form-control" id="age" >
             </div>
-  ` }
-
-        else if (doctor === 'therapist') {
-            const dynamicInputs = document.querySelector('.dynamic-inputs');
-            dynamicInputs.innerHTML = `<div class="mb-3">
+  `;
+    } else if (doctor === "therapist") {
+      const dynamicInputs = document.querySelector(".dynamic-inputs");
+      dynamicInputs.innerHTML = `<div class="mb-3">
     <label for="age" class="form-label">Age</label>
     <input type="text" class="form-control" id="age" >
-            </div>` }
+            </div>`;
+    }
+  });
+});
 
+//login button
+const loginButton = document.createElement("button");
+loginButton.className = "login-button";
+loginButton.innerText = "Login";
 
-
-
-
-
-
-    })
-
-
-})
-
-//login button 
-const loginButton = document.createElement('button');
-loginButton.className = "login-button"
-loginButton.innerText = 'Login';
-
-loginButton.addEventListener('click', () => {
-    login_modal.render();
-    const form = document.querySelector('.login-form')
-    form.addEventListener('submit', handleLogin);
-
-})
+loginButton.addEventListener("click", () => {
+  login_modal.render();
+  const form = document.querySelector(".login-form");
+  form.addEventListener("submit", handleLogin);
+});
 
 //logout button
 
-const logoutButton = document.createElement('button');
-logoutButton.className = "logout-button"
-logoutButton.innerText = 'Logout';
-logoutButton.addEventListener('click', () => {
-    Me.logout();
-})
-
-
-
+const logoutButton = document.createElement("button");
+logoutButton.className = "logout-button";
+logoutButton.innerText = "Logout";
+logoutButton.addEventListener("click", () => {
+  Me.logout();
+});
 
 if (Me.isAuth()) {
-    navbar.appendChild(createVisitButton);
-    navbar.appendChild(logoutButton)
-
+  navbar.appendChild(createVisitButton);
+  navbar.appendChild(logoutButton);
 } else {
-
-    navbar.appendChild(loginButton);
+  navbar.appendChild(loginButton);
 }
 
-
-
-
+const displayAllCards = new DisplayCards();
+displayAllCards.attachEventListeners();
+displayAllCards.display();
