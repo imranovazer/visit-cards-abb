@@ -4,9 +4,12 @@ import { Cardiologist } from "./Visit.js";
 import { Dentist } from "./Visit.js";
 import { Therapist } from "./Visit.js";
 import DisplayCards from "./DisplayCards.js";
+import FetchData from "./fetchData.js";
 import { Visit } from "./Visit.js";
 
 const Me = new User();
+const displayCardInstance = new DisplayCards();
+const fetchDataInstance = new FetchData();
 
 // const res = await fetch("https://ajax.test-danit.com/api/v2/cards", {
 //   method: 'GET',
@@ -118,7 +121,7 @@ createVisitButton.addEventListener("click", () => {
           lastVisitDate
         );
         const processedData = await newVisit.create();
-        console.log(processedData);
+        console.log("added", processedData);
       } else if (doctor === "cardiologist") {
         const newVisit = new Cardiologist(
           visitPurpose,
@@ -132,7 +135,7 @@ createVisitButton.addEventListener("click", () => {
           age
         );
         const processedData = await newVisit.create();
-        console.log(processedData);
+        console.log("added", processedData);
       } else if (doctor === "therapist") {
         const newVisit = new Therapist(
           visitPurpose,
@@ -143,13 +146,16 @@ createVisitButton.addEventListener("click", () => {
           age
         );
         const processedData = await newVisit.create();
-
-        console.log(processedData);
+        console.log("added", processedData);
       }
       const status = document.querySelector(".satus");
       status.style.color = "green";
       status.innerText = "Visit created successfully";
-      displayAllCards.display();
+      //added by Ali
+      const allData = await fetchDataInstance.fetchData();
+      displayCardInstance.display(allData);
+      createVisitModal.unrender();
+      //added by Ali
     } catch (err) {
       console.log(err);
       const status = document.querySelector(".satus");
