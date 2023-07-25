@@ -23,6 +23,6 @@
 
 ### Mirjabbar Badalov
 
--Implemented functionality for display cards</br>
--Implemented functionality for edit cards</br>
--Edit class implemented</br>
+- Implemented functionality for display cards</br>
+- Implemented functionality for edit cards</br>
+- Edit class implemented</br>
