@@ -19,6 +19,6 @@
 - 
 
 ### Ali Ramazanov
-Implemenmted Filter Functionality
+- Implemenmted Filter Functionality
 
 ### Mirjabbar Badalov
