@@ -1,7 +1,10 @@
 import Edit from "./Edit.js";
+import FetchData from "./fetchData.js";
+let fetchDataInstance = new FetchData();
 
 export default class DisplayCards {
   constructor() {
+    this.fetAllData();
     this.cardsSection = document.querySelector(".cards-section");
   }
 
@@ -27,7 +30,6 @@ export default class DisplayCards {
   }
 
   attachEventListeners() {
-    // Attach the event listener for "Delete" buttons
     this.cardsSection.addEventListener("click", (event) => {
       if (event.target.classList.contains("delete-btn")) {
         const cardElement = event.target.closest(".card");
@@ -64,24 +66,19 @@ export default class DisplayCards {
     });
   }
 
-  async display() {
+  async fetAllData() {
+    const data = await fetchDataInstance.fetchData();
+    this.display(data);
+  }
+
+  async display(processedData) {
     try {
-      const res = await fetch("https://ajax.test-danit.com/api/v2/cards", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      const processedData = await res.json();
-
-      if (processedData.length === 0) {
+      if (processedData == undefined) {
         this.cardsSection.innerHTML = '<p class="info">Add cards</p>';
         return;
       }
 
       this.cardsSection.innerHTML = "";
-
       processedData.forEach((e) => {
         if (e.doctor === "cardiologist") {
           this.renderCard(`
@@ -138,8 +135,6 @@ export default class DisplayCards {
           `);
         }
       });
-
-      // this.attachEventListeners();
     } catch (error) {
       console.error("Error displaying cards:", error);
     }
