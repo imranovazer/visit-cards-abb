@@ -22,3 +22,7 @@
 - Implemenmted Filter Functionality
 
 ### Mirjabbar Badalov
+
+-Implemented functionality for display cards
+-Implemented functionality for edit cards
+-Edit class implemented
