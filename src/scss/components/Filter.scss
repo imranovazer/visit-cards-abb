@@ -1,0 +1,59 @@
+$primary-color: #85c7f3;
+$background-color: #f7f7f7;
+$box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+$border-radius: 4px;
+
+.search-part {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: $background-color;
+  box-shadow: $box-shadow;
+}
+
+.search-box-div {
+  display: flex;
+  align-items: center;
+
+  #search-box {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: $border-radius;
+    margin-right: 10px; /* Added margin to separate from dropdowns */
+  }
+
+  #search-button {
+    padding: 8px 16px;
+    background-color: $primary-color;
+    color: #fff;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+.select-urgency,
+.select-status,
+.select-doctor-filter {
+  display: flex; /* Added display flex to place items in a row */
+  align-items: center; /* Center items vertically */
+  margin-top: 10px;
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-right: 10px; /* Added margin to separate from other elements */
+  }
+
+  select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: $border-radius;
+    width: 150px;
+  }
+}
