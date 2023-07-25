@@ -134,6 +134,5 @@ class DoctorDataFetcher {
 
 const doctorDataFetcher = new DoctorDataFetcher();
 setTimeout(() => {
-  doctorDataFetcher.displayDoctors();
   doctorDataFetcher.initializeEventListeners();
 }, 1000);
