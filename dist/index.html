@@ -41,12 +41,49 @@
         <div class="button-container"></div>
       </div>
     </nav>
+    <div class="search-part">
+      <div class="search-box-div">
+        <input id="search-box" type="text" placeholder="Search.." />
+        <button id="search-button" class="search-button">Search</button>
+      </div>
 
+      <div class="select-urgency">
+        <label for="urgency-select">Select Urgency:</label>
+        <select name="urgency" id="urgency-select">
+          <option value="All">All</option>
+          <option value="Normal">Normal</option>
+          <option value="Priority">Priority</option>
+          <option value="Urgent">Urgent</option>
+        </select>
+      </div>
+
+      <div class="select-status">
+        <label for="case-state-select">Select a Status:</label>
+        <select name="case-state" id="case-state-select">
+          <option value="All">All</option>
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+        </select>
+      </div>
+
+      <div class="select-doctor-filter">
+        <label for="doctor-type-select">Select Doctor:</label>
+        <select name="doctor-type" id="doctor-type-select">
+          <option value="All">All</option>
+          <option value="Cardiologist">Cardiologist</option>
+          <option value="Dentist">Dentist</option>
+          <option value="Therapist">Therapist</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="doctor-cards" class="flex-container"></div>
     <p class="info"></p>
     <div class="cards-section"></div>
 
     <div class="modal-overlay" id="modal-overlay"></div>
 
     <script type="module" src="./src/js/main.js"></script>
+    <script type="module" src="./src/js/Filter.js"></script>
   </body>
 </html>
